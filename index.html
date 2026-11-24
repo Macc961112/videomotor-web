@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VideoMotor · estudio de vídeos en código, en tu PC y en tu móvil</title>
+<meta name="description" content="Crea vídeos con voz, música y motion graphics hechos en código: 107 estilos, Crimson Gloss con muñecos presentadores y una app Android que renderiza dentro del teléfono. Sin nube ni suscripciones.">
+<meta property="og:title" content="VideoMotor · estudio de vídeos en código">
+<meta property="og:description" content="Guion → vídeo con voz y música, en tu PC y dentro de tu móvil. 107 estilos, IA opcional con tu propia clave.">
+<meta property="og:image" content="https://macc961112.github.io/VideoMotor/img/crimson_vertical.jpg">
+<meta name="theme-color" content="#e10600">
+<link rel="icon" href="icono.png">
+<style>
+@font-face{font-family:Montserrat;font-weight:100 900;src:url(montserrat.woff2) format('woff2')}
+:root{--bg:#ececf0;--bg2:#f7f6f8;--card:#fff;--line:#dcdce4;--fg:#1b0d12;--mut:#6c6670;--acc:#e10600;--dk:#7a0012;--lt:#ff2a2a;--hot:#ff3d5a;--sun:#ffb02e;--soft:#ffe3e5;--glow:#ff2a2a55}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:linear-gradient(180deg,var(--bg),var(--bg2)) fixed;color:var(--fg);font:16px/1.65 "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+html::before,html::after{content:"";position:fixed;z-index:-1;border-radius:50%;pointer-events:none}
+html::before{width:70vmax;height:70vmax;right:-28vmax;top:-30vmax;background:radial-gradient(circle at 40% 40%,#ff2a2a55,#ff2a2a00 62%);animation:b1 16s ease-in-out infinite alternate}
+html::after{width:60vmax;height:60vmax;left:-26vmax;bottom:-28vmax;background:radial-gradient(circle at 55% 45%,#ffb02e44,#ff3d5a00 62%);animation:b2 20s ease-in-out infinite alternate}
+@keyframes b1{to{transform:translate(-9vmax,10vmax) scale(1.18) rotate(24deg)}}
+@keyframes b2{to{transform:translate(12vmax,-8vmax) scale(1.22) rotate(-18deg)}}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.gl{padding-right:.1em;background:linear-gradient(100deg,var(--dk) 0%,#d0000f 28%,var(--lt) 44%,#ff8a8a 50%,var(--lt) 56%,#d0000f 72%,var(--dk) 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4.5s linear infinite}
+@keyframes shine{from{background-position:130% 0}to{background-position:-130% 0}}
+/* cabecera */
+header{position:sticky;top:0;z-index:20;background:#ececf0d9;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-style:italic;font-size:22px;letter-spacing:-.04em;text-decoration:none}
+.logo img{width:34px;height:34px}
+nav{display:flex;gap:22px;font-size:14px;font-weight:600;color:var(--mut)}
+nav a{text-decoration:none;position:relative;padding:4px 0}nav a:hover,nav a.on{color:var(--acc)}
+nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:3px;background:var(--acc);transform:scaleX(0);transition:transform .25s}nav a:hover::after,nav a.on::after{transform:scaleX(1)}
+.hbtn{padding:9px 18px!important;font-size:14px!important}
+@media(max-width:860px){nav{display:none}}
+/* botones */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:16px;font-weight:800;font-style:italic;letter-spacing:-.02em;text-decoration:none;border:2px solid var(--acc);background:#fff;color:var(--acc);transition:transform .2s cubic-bezier(.2,1.4,.4,1),box-shadow .2s}
+.btn:hover{transform:translateY(-3px)}.btn:active{transform:scale(.96)}
+.btn.p{background:linear-gradient(180deg,#ff5a5a,var(--acc) 52%,#a8000f);color:#fff;border-color:transparent;box-shadow:0 12px 26px var(--glow),inset 0 1px 0 #ffffff66;text-shadow:0 1px 0 var(--dk)}
+.btn.p::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,#fff0,#ffffff30,#fff0);mix-blend-mode:soft-light;pointer-events:none;transform:skewX(-20deg);animation:sweep 3.6s ease-in-out infinite}
+@keyframes sweep{0%,55%{left:-60%}100%{left:130%}}
+.btn small{font-weight:500;opacity:.85;font-size:12px;font-style:normal}
+/* hero */
+.hero{padding:74px 0 30px;text-align:center}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;background:#fff;border:2px solid var(--line);border-radius:99px;padding:6px 16px;font-size:13px;font-weight:700;color:var(--mut);box-shadow:0 6px 16px #0000000d}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 var(--glow);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px #ff2a2a00}}
+.hero h1{font-size:clamp(40px,7.4vw,84px);line-height:.98;margin:20px 0 18px;font-weight:800;font-style:italic;letter-spacing:-.055em}
+.hero .sub{max-width:720px;margin:0 auto 30px;color:var(--mut);font-size:19px}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.note{color:var(--mut);font-size:13px;margin-top:14px}
+.stage{display:flex;gap:22px;justify-content:center;align-items:flex-end;margin-top:54px;flex-wrap:wrap;perspective:1200px}
+.phone{width:min(250px,42vw);border-radius:30px;overflow:hidden;border:7px solid #1b0d12;background:#1b0d12;box-shadow:0 30px 60px #0000003d,0 0 0 2px var(--acc);transition:transform .4s}
+.phone video,.phone img{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#d9d9e0}
+.phone.t1{transform:rotate(-5deg) translateY(10px)}.phone.t2{transform:translateY(-14px) scale(1.06);z-index:2}.phone.t3{transform:rotate(5deg) translateY(10px)}
+.phone:hover{transform:translateY(-8px) scale(1.04) rotate(0)}
+.float{animation:flo 6s ease-in-out infinite}@keyframes flo{50%{translate:0 -10px}}
+/* franja de cifras */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:56px 0 0}
+.stat{background:#fff;border:2px solid var(--line);border-radius:20px;padding:18px;text-align:center;box-shadow:0 10px 22px #0000000d}
+.stat b{display:block;font-size:38px;font-style:italic;letter-spacing:-.04em;line-height:1.1;background:linear-gradient(180deg,var(--dk),#d0000f 45%,var(--lt));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:13px;color:var(--mut);font-weight:600}
+/* secciones */
+section{padding:84px 0 20px}
+.kicker{display:inline-block;background:var(--acc);color:#fff;font-style:italic;font-weight:700;padding:2px 14px 4px;border-radius:9px;transform:skewX(-8deg);margin-bottom:12px;font-size:13px;letter-spacing:.02em}
+h2{font-size:clamp(30px,4.6vw,48px);margin:0 0 10px;font-weight:800;font-style:italic;letter-spacing:-.045em;line-height:1.04}
+h3{font-style:italic;letter-spacing:-.03em;margin:0 0 6px;font-size:19px}
+.lead{color:var(--mut);max-width:760px;margin:0 0 30px;font-size:17px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 10px 24px #0000000d;transition:transform .25s cubic-bezier(.2,1.4,.4,1),box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-5px);border-color:var(--acc);box-shadow:0 18px 36px #e106001f}
+.card p{margin:0;color:var(--mut);font-size:15px}
+.ico{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:linear-gradient(180deg,#fff,var(--soft));border:2px solid #ffd0d4;font-size:24px;margin-bottom:12px}
+/* pasos */
+.steps3{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));counter-reset:s}
+.steps3 .card{position:relative;padding-top:34px}
+.steps3 .card::before{counter-increment:s;content:counter(s);position:absolute;top:-18px;left:20px;width:40px;height:40px;border-radius:50%;background:linear-gradient(180deg,var(--lt),var(--acc));color:#fff;font-weight:800;font-style:italic;display:grid;place-items:center;box-shadow:0 8px 16px var(--glow)}
+/* pestañas */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px}
+.tabs button{font:inherit;font-weight:700;font-style:italic;cursor:pointer;background:#fff;color:var(--mut);border:2px solid var(--line);border-radius:14px;padding:11px 20px;transition:all .2s}
+.tabs button:hover{border-color:var(--acc);color:var(--acc)}
+.tabs button.on{background:linear-gradient(180deg,#ff5a5a,var(--acc) 55%,#b00012);color:#fff;border-color:transparent;box-shadow:0 10px 22px var(--glow)}
+.panel{display:none;animation:up .5s cubic-bezier(.2,.9,.3,1) both}.panel.on{display:block}
+@keyframes up{from{opacity:0;transform:translateY(18px)}}
+.split{display:grid;gap:34px;grid-template-columns:1.1fr .9fr;align-items:center}
+.split.rev{grid-template-columns:.9fr 1.1fr}
+@media(max-width:820px){.split,.split.rev{grid-template-columns:1fr}.hero{padding:46px 0 24px}section{padding-top:60px}}
+.vids{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.vids figure{margin:0;background:var(--card);border:2px solid var(--line);border-radius:20px;overflow:hidden;transition:transform .3s}
+.vids figure:hover{transform:translateY(-4px)}
+.vids video,.vids img{width:100%;display:block;background:#d9d9e0}
+#estilos .vids video{aspect-ratio:9/12;object-fit:cover}
+.vids figcaption{padding:10px 14px;font-size:14px;color:var(--mut)}
+/* marquesina del catálogo */
+.marq{overflow:hidden;margin:8px -20px 0;padding:10px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.marq .row{display:flex;gap:14px;width:max-content;animation:mq 70s linear infinite}
+.marq:hover .row{animation-play-state:paused}
+.marq figure{margin:0;width:150px;flex:none;background:#fff;border:2px solid var(--line);border-radius:16px;overflow:hidden}
+.marq img{width:100%;display:block}.marq figcaption{font-size:12px;padding:6px 8px;color:var(--mut);text-align:center}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mun{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.mun figure{margin:0;background:var(--card);border:2px solid var(--line);border-radius:20px;overflow:hidden;text-align:center;padding-bottom:12px;transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+.mun figure:hover{transform:translateY(-8px) rotate(-1.5deg)}
+.mun img{width:100%;display:block}.mun b{display:block;font-style:italic}
+/* móvil */
+.bento{display:grid;gap:16px;grid-template-columns:repeat(6,1fr)}
+.bento .card:nth-child(1){grid-column:span 3}.bento .card:nth-child(2){grid-column:span 3}
+.bento .card:nth-child(3){grid-column:span 2}.bento .card:nth-child(4){grid-column:span 2}.bento .card:nth-child(5){grid-column:span 2}
+@media(max-width:820px){.bento{grid-template-columns:1fr}.bento .card{grid-column:auto!important}}
+code,pre{font-family:ui-monospace,Consolas,monospace;font-size:14px}
+code{background:#fff;border:1px solid var(--line);padding:2px 6px;border-radius:6px}
+pre{background:#1b0d12;color:#ffd9dc;border-radius:16px;padding:16px;overflow-x:auto;box-shadow:0 12px 26px #0000002e}
+table{width:100%;border-collapse:collapse;font-size:15px;background:#fff;border-radius:16px;overflow:hidden;border:2px solid var(--line)}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}
+th{color:var(--acc);font-style:italic;background:#fff7f7}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--soft);color:var(--acc);font-size:12px;font-weight:700}
+/* faq */
+details{background:#fff;border:2px solid var(--line);border-radius:18px;padding:0 20px;margin:10px 0;transition:border-color .2s,box-shadow .2s}
+details[open]{border-color:var(--acc);box-shadow:0 12px 26px #e106001a}
+summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:24px;line-height:1;color:var(--acc);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 16px;color:var(--mut)}
+/* cta final */
+.cta{margin:90px 0 0;background:linear-gradient(135deg,#7a0012,#d0000f 50%,#ff3d5a);border-radius:32px;padding:54px 24px;text-align:center;color:#fff;box-shadow:0 30px 60px #e1060040;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,#fff0,#ffffff22,#fff0 30%);animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cta>*{position:relative}
+.cta h2{color:#fff}.cta p{max-width:560px;margin:0 auto 24px;color:#ffe3e5}
+.cta .btn{background:#fff;color:var(--acc);border-color:#fff}
+footer{padding:46px 0 40px;color:var(--mut);font-size:14px;text-align:center}
+/* aparición al hacer scroll */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.9,.3,1),transform .7s cubic-bezier(.2,.9,.3,1)}
+.rv.in{opacity:1;transform:none}
+.grid>.rv:nth-child(2),.steps3>.rv:nth-child(2){transition-delay:.08s}.grid>.rv:nth-child(3),.steps3>.rv:nth-child(3){transition-delay:.16s}.grid>.rv:nth-child(4){transition-delay:.24s}.grid>.rv:nth-child(5){transition-delay:.32s}.grid>.rv:nth-child(6){transition-delay:.4s}
+.lf{display:block;font-size:13px;font-weight:700;color:var(--mut);margin:0 0 12px}
+.lf input,.lf select,.lf textarea{display:block;width:100%;margin-top:5px;font:inherit;font-weight:500;color:var(--fg);background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px}
+.lf input:focus,.lf select:focus,.lf textarea:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 4px #ff2a2a22}
+.btn .ic{flex:none}
+.btn.big{padding:14px 26px;text-align:left}
+.btn.big span{display:flex;flex-direction:column;line-height:1.25;font-size:17px}
+.btn.big small{opacity:.9;font-weight:500;font-style:normal;font-size:12px}
+.dlgrid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.dlcard{background:#fff;border:2px solid var(--line);border-radius:26px;padding:26px;text-align:center;box-shadow:0 14px 30px #0000000d;transition:transform .25s cubic-bezier(.2,1.4,.4,1),border-color .25s,box-shadow .25s}
+.dlcard:hover{transform:translateY(-6px);border-color:var(--acc);box-shadow:0 22px 44px #e106001f}
+.dlcard .logo2{width:84px;height:84px;margin:0 auto 14px;border-radius:24px;background:linear-gradient(180deg,#ff5a5a,var(--acc) 55%,#a8000f);color:#fff;display:grid;place-items:center;box-shadow:0 12px 24px var(--glow)}
+.dlcard h3{font-size:24px;margin:0 0 4px}
+.dlcard .meta{color:var(--mut);font-size:14px;margin:0 0 16px}
+.dlcard .btn{width:100%;justify-content:center;font-size:17px}
+.dlcard ul{list-style:none;padding:0;margin:16px 0 0;text-align:left;color:var(--mut);font-size:14px}
+.dlcard li{padding:4px 0 4px 22px;position:relative}.dlcard li::before{content:"✓";position:absolute;left:0;color:var(--ok,#0e9f5e);font-weight:800}
+.dlcard .alt{margin-top:12px;font-size:13px;color:var(--mut)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#"><img src="icono.png" alt=""><span>Video<span class="gl">Motor</span></span></a>
+  <nav id="nav"><a href="#descargar">Descargar</a><a href="#como">Cómo funciona</a><a href="#crimson">Crimson Gloss</a><a href="#estilos">107 estilos</a><a href="#movil">Móvil</a><a href="#ia">IA</a><a href="#instalar">Instalar</a><a href="#licencia">Licencia</a><a href="#faq">Dudas</a></nav>
+  <a class="btn p hbtn" href="#descargar"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Descargar</a>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <span class="eyebrow"><i></i>Versión 1.4 · nuevo Estudio: Crimson, mezcla de estilos y creador de estilos con tu IA</span>
+  <h1>Escribe un guion.<br>Obtén un <span class="gl">vídeo</span>.</h1>
+  <p class="sub">Presentador animado, 13 estilos que se mezclan, tipos de guion y motion graphics, todo dibujado con código en tu PC o directamente en tu teléfono. Tu IA (ChatGPT, Gemini o Grok) escribe el guion y los dibujos.</p>
+  <div class="btns">
+    <a class="btn p big" href="#licencia"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg><span>Descargar para Windows<small>VideoMotor-Setup.exe · 36,6 MB</small></span></a>
+    <a class="btn p big" href="https://github.com/Macc961112/videomotor-web/releases/latest/download/VideoMotor.apk" download><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg><span>Descargar para Android<small>VideoMotor.apk · 2,4 MB</small></span></a>
+  </div>
+  <p class="note"><a href="#licencia">Cómo obtener tu licencia</a> · <a href="#descargar">Ayuda con la descarga</a></p>
+    <div class="stage">
+    <div class="phone t1 float"><video src="video/crimson-cuento.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+    <div class="phone t2"><video src="video/crimson-intro.mp4" autoplay muted loop playsinline></video></div>
+    <div class="phone t3 float" style="animation-delay:-3s"><video src="video/movil-crimson.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b data-n="120">120</b><span>estilos de película</span></div>
+    <div class="stat"><b data-n="39">39</b><span>estilos de animación</span></div>
+    <div class="stat"><b data-n="12">12</b><span>personajes Crimson</span></div>
+    <div class="stat"><b data-n="59">59</b><span>tipos de guion</span></div>
+    <div class="stat"><b>100&nbsp;%</b><span>sin nube, offline</span></div>
+  </div>
+</div>
+
+<section id="descargar"><div class="wrap">
+  <span class="kicker">DESCARGAS</span>
+  <h2>Elige tu <span class="gl">dispositivo</span></h2>
+  <p class="lead">Instálalo y ábrelo para verlo todo. Para crear vídeos necesitas tu <a href="#licencia">clave de licencia</a>.</p>
+  <div class="dlgrid">
+    <div class="dlcard rv"><div class="logo2"><svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg></div><h3>Windows</h3><p class="meta">Windows 10 u 11 · instalador de 36,6 MB</p>
+      <a class="btn p" href="#licencia"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Descargar para Windows</a>
+      <p class="alt">¿Tu navegador lo bloquea? Pulsa «Conservar» o baja la <a href="#licencia"><b>versión en .zip</b></a>.</p>
+      <ul><li>Se instala solo (Python, ffmpeg y modelos)</li><li>8 GB de RAM y 12 GB libres</li><li>Si SmartScreen avisa: «Más información → Ejecutar de todas formas»</li></ul></div>
+    <div class="dlcard rv"><div class="logo2"><svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor"><path d="M6 9.5h12v8.2A1.3 1.3 0 0116.7 19H15v2.2a1.1 1.1 0 01-2.2 0V19h-1.6v2.2a1.1 1.1 0 01-2.2 0V19H7.3A1.3 1.3 0 016 17.7zM4.6 9.8a1.1 1.1 0 012.2 0v5.4a1.1 1.1 0 01-2.2 0zm12.6 0a1.1 1.1 0 012.2 0v5.4a1.1 1.1 0 01-2.2 0zM15.4 3.6l1-1.7.5.3-1 1.7A5.6 5.6 0 0118 8.2H6a5.6 5.6 0 012.1-4.3l-1-1.7.5-.3 1 1.7a5.7 5.7 0 017.8 0zM9.6 6.4a.6.6 0 100-1.2.6.6 0 000 1.2zm4.8 0a.6.6 0 100-1.2.6.6 0 000 1.2z"/></svg></div><h3>Android</h3><p class="meta">Android 10 o superior · APK de 2,4 MB</p>
+      <a class="btn p" href="https://github.com/Macc961112/videomotor-web/releases/latest/download/VideoMotor.apk" download><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Descargar para Android</a>
+      <p class="alt">Al abrirlo, permite «instalar apps de esta fuente».</p>
+      <ul><li>Crea y renderiza vídeos en el propio teléfono</li><li>Se conecta a tu PC si quieres los demás modelos</li><li>No está en Google Play: se instala desde el APK</li></ul></div>
+  </div>
+</div></section>
+
+<section id="como"><div class="wrap">
+  <span class="kicker">EN 3 PASOS</span>
+  <h2>De la idea al vídeo, <span class="gl">sin editar</span></h2>
+  <p class="lead">Eliges qué quieres contar y VideoMotor se ocupa del resto: estructura, voz, imágenes, subtítulos, música y exportación.</p>
+  <div class="steps3">
+    <div class="card rv"><div class="ico">🧭</div><h3>Elige el tipo</h3><p>Curiosidad, cómo funciona, consejos, top, datos, cuento… Cada tipo trae su estructura con tiempos y un tono (cercano, épico, divertido…).</p></div>
+    <div class="card rv"><div class="ico">✍️</div><h3>Consigue el guion</h3><p>Escríbelo tú, pídelo a ChatGPT con un toque, o deja que la app lo escriba con tu propia clave de Anthropic.</p></div>
+    <div class="card rv"><div class="ico">🎬</div><h3>Pulsa generar</h3><p>Voz, subtítulos palabra a palabra, música y efectos. Sale un MP4 vertical u horizontal listo para TikTok, Reels o YouTube.</p></div>
+  </div>
+  <div class="grid" style="margin-top:34px">
+    <div class="card rv"><div class="ico">🎙️</div><h3>Vídeo con voz</h3><p>Guion → escenas con imágenes por IA o gráficos en código → voz Kokoro, subtítulos y música a −14 LUFS.</p></div>
+    <div class="card rv"><div class="ico">🧩</div><h3>Vídeo con código</h3><p>Capas de texto, contadores, barras, anillos y listas; 21 estilos, 42 paletas y 15 efectos combinables.</p></div>
+    <div class="card rv"><div class="ico">🎞️</div><h3>Películas en código</h3><p>107 estilos de motion graphics: la IA escribe la página y VideoMotor la dibuja fotograma a fotograma, con voz.</p></div>
+    <div class="card rv"><div class="ico">🗣️</div><h3>Tu propia voz</h3><p>«Mi voz»: clona tu voz con Chatterbox a partir de una muestra, sin enviar nada a internet.</p></div>
+    <div class="card rv"><div class="ico">⏱️</div><h3>35 s a 10 min</h3><p>Vertical 1080×1920 y horizontal 1920×1080. Las zonas seguras de TikTok y Reels se respetan solas.</p></div>
+    <div class="card rv"><div class="ico">🔒</div><h3>Privado</h3><p>Todo ocurre en tu equipo. La única conexión opcional es la IA de guiones que tú elijas.</p></div>
+  </div>
+</div></section>
+
+<section id="crimson"><div class="wrap">
+  <span class="kicker">ESTILO ESTRELLA</span>
+  <h2>Crimson <span class="gl">Gloss</span></h2>
+  <p class="lead">Una palabra clave gigante en rojo cristal 3D que se escribe al ritmo de la voz, un muñeco que habla, tarjetas por cinta roja y trama de puntos. Basado en la skill <a href="https://github.com/Macc961112/crimson-gloss">crimson-gloss</a>, hecho por código y offline.</p>
+  <div class="tabs" role="tablist" data-tabs="cr">
+    <button class="on" data-t="c1">Básico (ligero)</button><button data-t="c2">Personaje</button><button data-t="c3">Cuentos</button><button data-t="c4">Catálogo de escenas</button><button data-t="c5">Muñecos</button>
+  </div>
+  <div class="panel on" id="c1"><div class="split">
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="card"><div class="ico">🔤</div><h3>Texto 3D</h3><p>Una palabra gigante por escena, elegida del guion (la marcada con *asteriscos* o la más cargada).</p></div>
+      <div class="card"><div class="ico">🧍</div><h3>Muñeco que habla</h3><p>La boca se mueve con las palabras; parpadea y respira.</p></div>
+      <div class="card"><div class="ico">🗂️</div><h3>Tarjetas</h3><p>La idea se ilustra con una pegatina junto al hombro, por una cinta roja.</p></div>
+      <div class="card"><div class="ico">🌤️</div><h3>Insertos</h3><p>Cada tres escenas, un fondo distinto (cielo, atardecer, noche…).</p></div>
+    </div>
+    <div class="vids" style="grid-template-columns:1fr"><figure><video data-src="video/crimson-datos.mp4" muted loop playsinline></video><figcaption>Horizontal, con el robot y color azul: cualquier paleta sirve.</figcaption></figure></div>
+  </div></div>
+  <div class="panel" id="c2"><div class="split">
+    <div>
+      <p class="lead" style="margin-bottom:18px">Un presentador animado por código, sin cámara: <b>sincronía labial por visemas</b>, parpadeo, respiración, gestos (cuenta con los dedos, señala, saluda) y cámara con tomas y parallax. Lo describes con palabras y eliges decorado.</p>
+      <div class="grid" style="grid-template-columns:1fr 1fr">
+        <div class="card"><h3>👄 Boca real</h3><p>A, E, I, O, U, M/B/P, F/V…</p></div><div class="card"><h3>🤚 Gestos solos</h3><p>«Tres» → tres dedos.</p></div>
+        <div class="card"><h3>🎞️ B-roll</h3><p>Cifras, gráficos, pasos, chat…</p></div><div class="card"><h3>🎬 CTA final</h3><p>Subtítulos y llamada a la acción.</p></div>
+      </div>
+    </div>
+    <div class="stage" style="margin:0"><div class="phone"><video data-src="video/crimson-personaje.mp4" muted loop playsinline></video></div></div>
+  </div>
+  <div class="vids" style="grid-template-columns:1fr;max-width:760px;margin-top:22px"><figure><video data-src="video/crimson-personaje-h.mp4" muted loop playsinline></video><figcaption>También en horizontal (1920×1080): texto a la izquierda y presentador a la derecha.</figcaption></figure></div></div>
+  <div class="panel" id="c3"><div class="split rev">
+    <div class="stage" style="margin:0"><div class="phone"><video data-src="video/crimson-cuento-skill.mp4" muted loop playsinline></video></div></div>
+    <div>
+      <p class="lead" style="margin-bottom:18px">Cuentos y lecciones para niños: portada «Había una vez…», <b>lectura resaltada</b>, 12 mundos, unos 80 personajes que caminan, vuelan o nadan según el verbo, globos de diálogo, magia, moraleja y FIN.</p>
+      <div class="card"><h3>Qué se deduce solo</h3><p>«bosque» → mundo bosque · «zorro» → 🦊 · «camina» → anda · «dijo: “…”» → globo · «magia» → destellos · «Moraleja: …» → pergamino.</p></div>
+    </div>
+  </div>
+  <div class="vids" style="grid-template-columns:1fr;max-width:760px;margin-top:22px"><figure><video data-src="video/crimson-cuento-h.mp4" muted loop playsinline></video><figcaption>Cuento en horizontal: ilustración a un lado y texto al otro.</figcaption></figure></div></div>
+  <div class="panel" id="c4">
+    <p class="lead">La app elige sola la escena que mejor ilustra cada idea: una cifra se cuenta hasta su valor, «crece» dibuja un gráfico, «primero, segundo, tercero» hace pasos, un enlace abre un navegador… Estas son las 36 que trae.</p>
+    <div class="marq"><div class="row"><figure><img src="img/broll/browser.jpg" alt="Navegador" loading="lazy"><figcaption>Navegador</figcaption></figure><figure><img src="img/broll/callout.jpg" alt="Resaltar un detalle" loading="lazy"><figcaption>Resaltar un detalle</figcaption></figure><figure><img src="img/broll/chart_mint.jpg" alt="Gráfico que sube" loading="lazy"><figcaption>Gráfico que sube</figcaption></figure><figure><img src="img/broll/chart_night.jpg" alt="Gráfico que baja" loading="lazy"><figcaption>Gráfico que baja</figcaption></figure><figure><img src="img/broll/chat.jpg" alt="Chat" loading="lazy"><figcaption>Chat</figcaption></figure><figure><img src="img/broll/checklist.jpg" alt="Lista de puntos" loading="lazy"><figcaption>Lista de puntos</figcaption></figure><figure><img src="img/broll/compare.jpg" alt="Antes / ahora" loading="lazy"><figcaption>Antes / ahora</figcaption></figure><figure><img src="img/broll/countdown.jpg" alt="Cuenta atrás" loading="lazy"><figcaption>Cuenta atrás</figcaption></figure><figure><img src="img/broll/counting.jpg" alt="Contar objetos" loading="lazy"><figcaption>Contar objetos</figcaption></figure><figure><img src="img/broll/grid.jpg" alt="Cuadrícula de iconos" loading="lazy"><figcaption>Cuadrícula de iconos</figcaption></figure><figure><img src="img/broll/headline.jpg" alt="Titular de periódico" loading="lazy"><figcaption>Titular de periódico</figcaption></figure><figure><img src="img/broll/journey.jpg" alt="Mapa del tesoro" loading="lazy"><figcaption>Mapa del tesoro</figcaption></figure><figure><img src="img/broll/letter.jpg" alt="Letra y palabra" loading="lazy"><figcaption>Letra y palabra</figcaption></figure><figure><img src="img/broll/magic.jpg" alt="Magia" loading="lazy"><figcaption>Magia</figcaption></figure><figure><img src="img/broll/meter.jpg" alt="Medidor %" loading="lazy"><figcaption>Medidor %</figcaption></figure><figure><img src="img/broll/moral.jpg" alt="Moraleja" loading="lazy"><figcaption>Moraleja</figcaption></figure><figure><img src="img/broll/notifs.jpg" alt="Notificaciones" loading="lazy"><figcaption>Notificaciones</figcaption></figure><figure><img src="img/broll/phone.jpg" alt="Idea con objeto" loading="lazy"><figcaption>Idea con objeto</figcaption></figure><figure><img src="img/broll/polaroids.jpg" alt="Fotos polaroid" loading="lazy"><figcaption>Fotos polaroid</figcaption></figure><figure><img src="img/broll/price.jpg" alt="Oferta y precio" loading="lazy"><figcaption>Oferta y precio</figcaption></figure><figure><img src="img/broll/progress.jpg" alt="Barra de progreso" loading="lazy"><figcaption>Barra de progreso</figcaption></figure><figure><img src="img/broll/quote.jpg" alt="Cita" loading="lazy"><figcaption>Cita</figcaption></figure><figure><img src="img/broll/rain.jpg" alt="Lluvia de dinero" loading="lazy"><figcaption>Lluvia de dinero</figcaption></figure><figure><img src="img/broll/rating.jpg" alt="Valoración" loading="lazy"><figcaption>Valoración</figcaption></figure><figure><img src="img/broll/reaction.jpg" alt="Reacciones" loading="lazy"><figcaption>Reacciones</figcaption></figure><figure><img src="img/broll/scene.jpg" alt="Escena de cuento" loading="lazy"><figcaption>Escena de cuento</figcaption></figure><figure><img src="img/broll/shapes.jpg" alt="Formas y colores" loading="lazy"><figcaption>Formas y colores</figcaption></figure><figure><img src="img/broll/speech.jpg" alt="Diálogo" loading="lazy"><figcaption>Diálogo</figcaption></figure><figure><img src="img/broll/split.jpg" alt="Dos cosas a la vez" loading="lazy"><figcaption>Dos cosas a la vez</figcaption></figure><figure><img src="img/broll/stat.jpg" alt="Cifra que cuenta" loading="lazy"><figcaption>Cifra que cuenta</figcaption></figure><figure><img src="img/broll/steps.jpg" alt="Pasos 1-2-3" loading="lazy"><figcaption>Pasos 1-2-3</figcaption></figure><figure><img src="img/broll/storybook.jpg" alt="Página de cuento" loading="lazy"><figcaption>Página de cuento</figcaption></figure><figure><img src="img/broll/terminal.jpg" alt="Terminal" loading="lazy"><figcaption>Terminal</figcaption></figure><figure><img src="img/broll/theend.jpg" alt="FIN" loading="lazy"><figcaption>FIN</figcaption></figure><figure><img src="img/broll/timeline.jpg" alt="Línea de tiempo" loading="lazy"><figcaption>Línea de tiempo</figcaption></figure><figure><img src="img/broll/title.jpg" alt="Portada" loading="lazy"><figcaption>Portada</figcaption></figure><figure><img src="img/broll/browser.jpg" alt="Navegador" loading="lazy"><figcaption>Navegador</figcaption></figure><figure><img src="img/broll/callout.jpg" alt="Resaltar un detalle" loading="lazy"><figcaption>Resaltar un detalle</figcaption></figure><figure><img src="img/broll/chart_mint.jpg" alt="Gráfico que sube" loading="lazy"><figcaption>Gráfico que sube</figcaption></figure><figure><img src="img/broll/chart_night.jpg" alt="Gráfico que baja" loading="lazy"><figcaption>Gráfico que baja</figcaption></figure><figure><img src="img/broll/chat.jpg" alt="Chat" loading="lazy"><figcaption>Chat</figcaption></figure><figure><img src="img/broll/checklist.jpg" alt="Lista de puntos" loading="lazy"><figcaption>Lista de puntos</figcaption></figure><figure><img src="img/broll/compare.jpg" alt="Antes / ahora" loading="lazy"><figcaption>Antes / ahora</figcaption></figure><figure><img src="img/broll/countdown.jpg" alt="Cuenta atrás" loading="lazy"><figcaption>Cuenta atrás</figcaption></figure><figure><img src="img/broll/counting.jpg" alt="Contar objetos" loading="lazy"><figcaption>Contar objetos</figcaption></figure><figure><img src="img/broll/grid.jpg" alt="Cuadrícula de iconos" loading="lazy"><figcaption>Cuadrícula de iconos</figcaption></figure><figure><img src="img/broll/headline.jpg" alt="Titular de periódico" loading="lazy"><figcaption>Titular de periódico</figcaption></figure><figure><img src="img/broll/journey.jpg" alt="Mapa del tesoro" loading="lazy"><figcaption>Mapa del tesoro</figcaption></figure><figure><img src="img/broll/letter.jpg" alt="Letra y palabra" loading="lazy"><figcaption>Letra y palabra</figcaption></figure><figure><img src="img/broll/magic.jpg" alt="Magia" loading="lazy"><figcaption>Magia</figcaption></figure><figure><img src="img/broll/meter.jpg" alt="Medidor %" loading="lazy"><figcaption>Medidor %</figcaption></figure><figure><img src="img/broll/moral.jpg" alt="Moraleja" loading="lazy"><figcaption>Moraleja</figcaption></figure><figure><img src="img/broll/notifs.jpg" alt="Notificaciones" loading="lazy"><figcaption>Notificaciones</figcaption></figure><figure><img src="img/broll/phone.jpg" alt="Idea con objeto" loading="lazy"><figcaption>Idea con objeto</figcaption></figure><figure><img src="img/broll/polaroids.jpg" alt="Fotos polaroid" loading="lazy"><figcaption>Fotos polaroid</figcaption></figure><figure><img src="img/broll/price.jpg" alt="Oferta y precio" loading="lazy"><figcaption>Oferta y precio</figcaption></figure><figure><img src="img/broll/progress.jpg" alt="Barra de progreso" loading="lazy"><figcaption>Barra de progreso</figcaption></figure><figure><img src="img/broll/quote.jpg" alt="Cita" loading="lazy"><figcaption>Cita</figcaption></figure><figure><img src="img/broll/rain.jpg" alt="Lluvia de dinero" loading="lazy"><figcaption>Lluvia de dinero</figcaption></figure><figure><img src="img/broll/rating.jpg" alt="Valoración" loading="lazy"><figcaption>Valoración</figcaption></figure><figure><img src="img/broll/reaction.jpg" alt="Reacciones" loading="lazy"><figcaption>Reacciones</figcaption></figure><figure><img src="img/broll/scene.jpg" alt="Escena de cuento" loading="lazy"><figcaption>Escena de cuento</figcaption></figure><figure><img src="img/broll/shapes.jpg" alt="Formas y colores" loading="lazy"><figcaption>Formas y colores</figcaption></figure><figure><img src="img/broll/speech.jpg" alt="Diálogo" loading="lazy"><figcaption>Diálogo</figcaption></figure><figure><img src="img/broll/split.jpg" alt="Dos cosas a la vez" loading="lazy"><figcaption>Dos cosas a la vez</figcaption></figure><figure><img src="img/broll/stat.jpg" alt="Cifra que cuenta" loading="lazy"><figcaption>Cifra que cuenta</figcaption></figure><figure><img src="img/broll/steps.jpg" alt="Pasos 1-2-3" loading="lazy"><figcaption>Pasos 1-2-3</figcaption></figure><figure><img src="img/broll/storybook.jpg" alt="Página de cuento" loading="lazy"><figcaption>Página de cuento</figcaption></figure><figure><img src="img/broll/terminal.jpg" alt="Terminal" loading="lazy"><figcaption>Terminal</figcaption></figure><figure><img src="img/broll/theend.jpg" alt="FIN" loading="lazy"><figcaption>FIN</figcaption></figure><figure><img src="img/broll/timeline.jpg" alt="Línea de tiempo" loading="lazy"><figcaption>Línea de tiempo</figcaption></figure><figure><img src="img/broll/title.jpg" alt="Portada" loading="lazy"><figcaption>Portada</figcaption></figure></div></div>
+    <div class="vids" style="margin-top:22px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))"><figure><img src="img/catalogo_cat1_h.jpg" alt="Catálogo en horizontal" loading="lazy"><figcaption>Negocio y datos (1920×1080)</figcaption></figure><figure><img src="img/catalogo_cat2_h.jpg" alt="Catálogo de cuentos" loading="lazy"><figcaption>Cuentos, lecciones y escenas generales (1920×1080)</figcaption></figure></div>
+    <p class="note">Las cifras salen de lo que se entiende de tu voz: revisa que sean las que dijiste.</p>
+  </div>
+  <div class="panel" id="c5">
+    <p class="lead">Eliges quién presenta o dejas «Automático»: si habla de un zorro sale el zorro; de código o IA, el robot; de un cuento, el niño; de una reina, la presentadora; y si no hay pistas, el presentador.</p>
+    <div class="mun">
+      <figure><img src="img/muneco_hombre.jpg" alt="Presentador" loading="lazy"><b>Presentador</b></figure><figure><img src="img/muneco_mujer.jpg" alt="Presentadora" loading="lazy"><b>Presentadora</b></figure><figure><img src="img/muneco_nino.jpg" alt="Niño" loading="lazy"><b>Niño</b></figure><figure><img src="img/muneco_robot.jpg" alt="Robot" loading="lazy"><b>Robot</b></figure><figure><img src="img/muneco_zorro.jpg" alt="Zorro" loading="lazy"><b>Zorro</b></figure>
+    </div>
+  </div>
+</div></section>
+
+<section id="estilos"><div class="wrap">
+  <span class="kicker">120 ESTILOS</span>
+  <h2>Un estilo para <span class="gl">cada historia</span></h2>
+  <p class="lead">99 estilos de <a href="https://github.com/lemomo-ai/lemo-opuscar">Lemo-Opuscar</a> (óleo, acuarela, ukiyo-e, crayón, recortables, 3D en miniatura…) más <b>13 estilos de mezcla</b> (papel recortado, pizarra, acuarela, cómic, noticiero, terminal, plano técnico, synthwave, 8-bit, VHS, cristal, tipografía cinética y el «Editorial en movimiento» de los vídeos de Dota) y <b>8 que vienen de skills de vídeo-en-código</b>: Vox, lanzamiento tipo Apple, vídeo de lanzamiento SaaS, hito con partículas, gráfico animado, título 3D, efectos de movimiento y promo de newsletter. La IA escribe la página y VideoMotor la dibuja sin internet.</p>
+  <div class="vids">
+    <figure><video data-src="video/neon.mp4" muted loop playsinline></video><figcaption>Neón nocturno</figcaption></figure>
+    <figure><video data-src="video/cine.mp4" muted loop playsinline></video><figcaption>Cinemático</figcaption></figure>
+    <figure><video data-src="video/comic.mp4" muted loop playsinline></video><figcaption>Cómic</figcaption></figure>
+    <figure><video data-src="video/aurora.mp4" muted loop playsinline></video><figcaption>Aurora</figcaption></figure>
+    <figure><video data-src="video/blueprint.mp4" muted loop playsinline></video><figcaption>Plano técnico</figcaption></figure>
+    <figure><video data-src="video/cristal.mp4" muted loop playsinline></video><figcaption>Cristal</figcaption></figure>
+    <figure><img src="img/cuento-opuscar.jpg" alt="Cuento en estilo crayón" loading="lazy"><figcaption>«Tomi y la estrellita» (crayón), con voz, nana y subtítulos.</figcaption></figure>
+    <figure><img src="img/cuento-opuscar2.jpg" alt="Otra escena" loading="lazy"><figcaption>Cada escena se dibuja con Canvas, determinista y reproducible.</figcaption></figure>
+  </div>
+  <div class="card rv" style="margin-top:20px"><h3>La voz, de tres maneras</h3>
+    <table><tr><th>Cómo</th><th>Qué pasa</th></tr>
+      <tr><td><b>La página trae voz</b></td><td>Eventos <code>{t: 4.0, type: 'voz', texto: '…'}</code>: se narran en ese instante.</td></tr>
+      <tr><td><b>Escribes el texto</b></td><td>Lo pegas en «Texto que dirá la voz» y se reparte por toda la película.</td></tr>
+      <tr><td><b>Lectura automática</b></td><td>Si no hay ninguna de las dos, se leen los títulos y subtítulos que la página muestra.</td></tr></table></div>
+</div></section>
+
+<section id="movil"><div class="wrap">
+  <span class="kicker">NUEVO EN 1.4</span>
+  <h2>El Estudio, <span class="gl">en el móvil y en el PC</span></h2>
+  <p class="lead">La misma pantalla funciona en el teléfono y en el PC: <b>renderiza dentro del teléfono</b> sin encender el PC, y en el PC suma la voz Kokoro offline. Eliges tipo de vídeo, mezclas estilos, tu IA escribe el guion y los dibujos, y exportas un MP4 con voz y música. Al terminar tienes la descripción y los hashtags listos para copiar.</p>
+  <div class="split rev">
+    <div class="stage" style="margin:0"><div class="phone" style="border-color:#1b0d12"><img src="img/app-movil.jpg" alt="La app VideoMotor en el móvil" loading="lazy"></div></div>
+    <div class="bento" style="grid-template-columns:1fr 1fr">
+      <div class="card rv" style="grid-column:auto"><div class="ico">📱</div><h3>Render en el teléfono</h3><p>Codificación H.264 + AAC con el hardware del móvil. Un vídeo de 90 s se hizo en ~53 s.</p></div>
+      <div class="card rv" style="grid-column:auto"><div class="ico">🎬</div><h3>Crimson y mezcla de estilos</h3><p>Presentador animado con 12 personajes a elegir, fondos que cambian según el guion y 13 estilos (papel, pizarra, cómic, noticiero, synthwave, VHS…) que se combinan frase a frase.</p></div>
+      <div class="card rv" style="grid-column:auto"><div class="ico">🧭</div><h3>59 tipos de guion</h3><p>Cuento, fábula, terror, tutorial, noticia, storytime, tips de videojuegos… cada uno con su estructura, su forma de contar (historia o pasos) y una mezcla de estilos sugerida.</p></div>
+      <div class="card rv" style="grid-column:auto"><div class="ico">💻</div><h3>Crea tus propios estilos</h3><p>Describes cómo se ve, tu IA escribe el código del estilo, la app lo prueba y lo suma a tu mezcla. Nada es fijo: el arte lo dibuja tu IA por código.</p></div>
+    </div>
+  </div>
+  <h3 style="margin:34px 0 12px">Conectar con tu PC</h3>
+  <div class="grid">
+    <div class="card rv"><h3>Misma Wi-Fi</h3><p>Escribe <code>http://IP-DEL-PC:5000</code> y el PIN de 6 cifras.</p></div>
+    <div class="card rv"><h3>Con VPN</h3><p>Activa la <b>tunelización dividida</b> y deja VideoMotor fuera del túnel.</p></div>
+    <div class="card rv"><h3>Por cable USB</h3><p><code>adb reverse tcp:5000 tcp:5000</code> y <code>http://localhost:5000</code>.</p></div>
+    <div class="card rv"><h3>Túnel por internet</h3><p>«Usar desde el móvil → Activar» abre un túnel Cloudflare con QR y PIN.</p></div>
+  </div>
+</div></section>
+
+<section id="ia"><div class="wrap">
+  <span class="kicker">GUIONES Y ARTE</span>
+  <h2>Tu IA <span class="gl">escribe y dibuja</span></h2>
+  <p class="lead">VideoMotor no trae el arte fijo: se lo pides a la IA que ya usas. Un toque abre la app con el prompt listo, envías, copias su respuesta y vuelves: se pega sola.</p>
+  <div class="grid">
+    <div class="card rv"><div class="ico">💬</div><h3>ChatGPT, Gemini o Grok</h3><p>Cada botón aparece solo si tienes esa app instalada en el teléfono. En el PC se abre su web.</p></div>
+    <div class="card rv"><div class="ico">🎨</div><h3>Todo por código</h3><p>La IA devuelve la paleta de colores, el fondo, una ilustración por frase y las escenas, dibujadas con código y según lo que dice el guion.</p></div>
+    <div class="card rv"><div class="ico">✅</div><h3>La app lo comprueba</h3><p>Si falta una pieza te lo dice y te ofrece pedirla otra vez; si el código falla, te muestra el error para pegárselo a tu IA.</p></div>
+  </div>
+</div></section>
+
+<section id="instalar"><div class="wrap">
+  <span class="kicker">EMPIEZA</span>
+  <h2>Instalar <span class="gl">en 2 minutos</span></h2>
+  <div class="tabs" data-tabs="in"><button class="on" data-t="i1">Windows</button><button data-t="i2">Android</button><button data-t="i3">Desde el código</button></div>
+  <div class="panel on" id="i1">
+    <div class="steps3">
+      <div class="card"><h3>Descarga</h3><p><code>VideoMotor-Setup.exe</code> desde la <a href="https://github.com/Macc961112/videomotor-web/releases/latest">última versión</a> y ábrelo.</p></div>
+      <div class="card"><h3>Déjalo instalar</h3><p>Analiza tu PC y descarga Python, ffmpeg, PyTorch (CUDA o CPU), modelos y el motor Opuscar.</p></div>
+      <div class="card"><h3>Abre VideoMotor</h3><p>Elige tipo, tiempo, formato, estilo, personaje y voz; pega el guion y genera.</p></div>
+    </div>
+    <h3 style="margin:28px 0 10px">Perfiles según tu PC</h3>
+    <table><tr><th>Perfil</th><th>Hardware</th><th>Imágenes por IA</th></tr>
+      <tr><td><span class="tag">alto</span></td><td>NVIDIA con ≥ 10 GB de VRAM</td><td>Juggernaut XL</td></tr>
+      <tr><td><span class="tag">medio</span></td><td>NVIDIA 6–10 GB</td><td>Juggernaut con parte del modelo en RAM</td></tr>
+      <tr><td><span class="tag">cpu</span></td><td>Sin NVIDIA</td><td>SD-Turbo (lento); Crimson Gloss y los vídeos en código no lo necesitan</td></tr></table>
+    <p class="note">Mínimo: Windows 10/11, 8 GB de RAM, 12 GB libres e internet durante la instalación (6–12 GB de descarga).</p>
+  </div>
+  <div class="panel" id="i2"><div class="steps3">
+      <div class="card"><h3>Descarga el APK</h3><p><a href="https://github.com/Macc961112/videomotor-web/releases/latest/download/VideoMotor.apk"><code>VideoMotor.apk</code></a> (2,4 MB) y permite instalar desde esa fuente.</p></div>
+      <div class="card"><h3>Crea en el móvil</h3><p>Pulsa «Crear películas Opuscar aquí, en el móvil (sin PC)».</p></div>
+      <div class="card"><h3>Opcional: tu clave</h3><p>Ajustes ⚙ → pega tu clave de Anthropic para que la IA escriba los guiones.</p></div></div>
+    <p class="note">La app necesita Android 10 o superior y no está en Google Play.</p></div>
+  <div class="panel" id="i3"><pre>git clone https://github.com/Macc961112/VideoMotor
+cd VideoMotor
+python -m venv venv
+venv\Scripts\pip install -r requirements.txt
+venv\Scripts\python app.py     # ventana de escritorio
+venv\Scripts\python web.py     # solo el servidor web (puerto 5000)</pre></div>
+</div></section>
+
+<section id="licencia"><div class="wrap">
+  <span class="kicker">LICENCIA</span>
+  <h2>Una clave, <span class="gl">tu equipo</span></h2>
+  <p class="lead">VideoMotor es de pago. Puedes instalarlo y verlo todo, pero para crear vídeos necesitas una clave. Se activa sin internet y queda atada a tu equipo.</p>
+  <div class="steps3">
+    <div class="card rv"><h3>Copia tu código</h3><p>En la app, botón <b>🔑 Licencia</b> (PC) o <b>Ajustes → Licencia</b> (móvil).</p></div>
+    <div class="card rv"><h3>Pide tu clave</h3><p>Envía ese código por Instagram (botón de abajo) y recibirás una clave que empieza por <code>VM1-</code>.</p></div>
+    <div class="card rv"><h3>Actívala</h3><p>Pégala y pulsa Activar. Un PC, un móvil, o los que acordéis.</p></div>
+  </div>
+  <div class="card rv" id="pedir" style="margin-top:26px;max-width:640px">
+    <h3>Solicita tu licencia</h3>
+    <p style="margin-bottom:14px">El autor te responde con tu clave.</p>
+    <p style="margin-bottom:10px">Escríbeme por Instagram con tu código de equipo y tu nombre, y te respondo con tu clave:</p>
+    <a class="btn p" href="https://instagram.com/macc_dota2" target="_blank" rel="noopener" style="width:100%;justify-content:center">Escribir a @macc_dota2</a>
+    <p class="note" style="margin-top:10px">Mientras actualizo el instalador de Windows, pídemelo en ese mismo mensaje.</p>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <span class="kicker">CLARO Y SIN LETRA PEQUEÑA</span>
+  <h2>Dudas y <span class="gl">límites</span></h2>
+  <details><summary>¿Qué necesita internet?</summary><p>Solo la instalación inicial y tu IA de guiones (ChatGPT, Gemini o Grok), porque ellas escriben el guion y los dibujos. Crimson · Personaje y Cuento descargan ~200 MB la primera vez (Remotion/Node).</p></details>
+  <details><summary>¿Se puede renderizar cualquier estilo en el móvil?</summary><p>Los que dibujan con canvas y Crimson Gloss básico, sí. Los estilos que necesitan imágenes generadas con IA, o páginas sin canvas, se hacen en el PC.</p></details>
+  <details><summary>¿Las cifras de las escenas son fiables?</summary><p>Salen de la transcripción de la voz y pueden equivocarse: revísalas antes de publicar.</p></details>
+  <details><summary>¿El muñeco es una persona real?</summary><p>No, es un dibujo vectorial. No edita tu vídeo grabado (eso lo hace la skill original en Claude Code). Las pegatinas usan los emojis del sistema y a veces el emoji no encaja con la palabra.</p></details>
+  <details><summary>¿Por qué el texto de algunas películas no se lee en voz alta?</summary><p>Lo que una película Opuscar dibuja dentro de un <em>canvas</em> no se puede leer para la voz automática; usa eventos de voz o escribe el texto.</p></details>
+  <details><summary>¿Está firmado el instalador? ¿Está en Google Play?</summary><p>No a ambas: el instalador de Windows no está firmado (SmartScreen avisará) y la app de Android se instala desde el APK.</p></details>
+  <div class="cta">
+    <h2>Tu próximo vídeo, <br>en un par de minutos</h2>
+    <p>Licencia de pago por equipo, sin internet para activarla. Sin clave puedes ver toda la app.</p>
+    <div class="btns"><a class="btn" href="https://github.com/Macc961112/videomotor-web/releases/latest">⬇ Descargar VideoMotor 1.4</a></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  VideoMotor · software con licencia · <a href="https://github.com/Macc961112/videomotor-web">github.com/Macc961112/VideoMotor</a><br>
+  Estilo Crimson Gloss: skill <a href="https://github.com/Macc961112/crimson-gloss">crimson-gloss</a>. Usa Kokoro TTS, Chatterbox, faster-whisper, diffusers, OpenCV, Flask, pywebview y <a href="https://github.com/lemomo-ai/lemo-opuscar">Lemo-Opuscar</a>.
+</div></footer>
+
+<script>
+// pestañas (los vídeos de pestañas ocultas solo se cargan al abrirlas)
+function cargaVideos(root){root.querySelectorAll('video[data-src]').forEach(v=>{if(!v.src){v.src=v.dataset.src}v.autoplay=true;v.play&&v.play().catch(()=>{})})}
+document.querySelectorAll('[data-tabs]').forEach(bar=>{bar.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;bar.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x==b));const grp=bar.parentElement;grp.querySelectorAll(':scope > .panel').forEach(p=>p.classList.toggle('on',p.id==b.dataset.t));const p=document.getElementById(b.dataset.t);if(p)cargaVideos(p)})});
+// vídeos sueltos: se cargan al acercarse y se pausan al salir
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(v.dataset.src&&!v.src)v.src=v.dataset.src;v.play&&v.play().catch(()=>{})}else v.pause&&v.pause()}),{rootMargin:'200px'});
+document.querySelectorAll('video').forEach(v=>vio.observe(v));
+// aparición al hacer scroll
+const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>rio.observe(el));
+// cifras que cuentan
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);const n=+e.target.dataset.n,t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1100),v=Math.round(n*(1-Math.pow(1-k,3)));e.target.textContent=v;if(k<1)requestAnimationFrame(f)})(t0)}),{threshold:.6});
+document.querySelectorAll('[data-n]').forEach(el=>cio.observe(el));
+// sección activa en el menú
+const secs=[...document.querySelectorAll('main section')],links=[...document.querySelectorAll('#nav a')];
+const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>sio.observe(s));
+
+// formulario de licencia: rellena el código si viene de la app y envía sin salir de la página
+(function(){const f=document.getElementById('flic');if(!f)return;const c=new URLSearchParams(location.search).get('codigo');if(c)document.getElementById('fcod').value=c.toUpperCase();
+f.addEventListener('submit',async e=>{e.preventDefault();const m=document.getElementById('fmsg');m.textContent='Enviando…';
+try{const r=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()});if(!r.ok)throw 0;f.reset();m.textContent='✔ Recibido. Te escribiré pronto con tu clave.'}catch(x){m.textContent='⚠ No se pudo enviar. Escríbeme por Instagram @macc_dota2 con tu código.'}})})();
+</script>
+</body>
+</html>
