@@ -52,7 +52,7 @@ nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;
 .eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 var(--glow);animation:ping 1.8s infinite}
 @keyframes ping{70%{box-shadow:0 0 0 11px #ff3d5a00}}
 h1{font-size:clamp(44px,7.4vw,92px);line-height:.96;margin:22px 0 20px;font-weight:900;letter-spacing:-.06em}
-h1 .ln{display:block;overflow:hidden;padding-bottom:.08em}
+h1 .ln{display:block;overflow:hidden;padding-bottom:.14em}
 h1 .ch{display:inline-block;transform:translateY(110%) rotate(8deg);opacity:0;animation:ch .9s cubic-bezier(.2,.9,.2,1) forwards}
 @keyframes ch{to{transform:none;opacity:1}}
 #rot{display:inline-block;min-width:3ch;position:relative}
@@ -433,7 +433,7 @@ const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelecto
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 /* titular: letras que suben una a una + palabra que rota */
 (function(){
-  function letras(el,txt,d0,cls){for(const [i,c] of [...txt].entries()){const s=document.createElement('span');s.className='ch'+(cls?' '+cls:'');s.style.animationDelay=(d0+i*.045)+'s';s.textContent=c===' '?' ':c;el.appendChild(s)}}
+  function letras(el,txt,d0,cls){let n=0;txt.split(/(?<= )/).forEach(w=>{const g=document.createElement('span');g.style.cssText='display:inline-block;white-space:nowrap';for(const c of w){const s=document.createElement('span');s.className='ch'+(cls?' '+cls:'');s.style.animationDelay=(d0+n++*.045)+'s';s.textContent=c===' '?' ':c;g.appendChild(s)}el.appendChild(g)})}
   letras($('#l1'),'Escribe un guion.',.15);
   const l2=$('#l2');letras(l2,'Obtén un ',.7);
   const r=document.createElement('span');r.id='rot';r.className='gl';l2.appendChild(r);l2.insertAdjacentHTML('beforeend','<i class="cur"></i>');
