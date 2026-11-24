@@ -143,7 +143,7 @@ h3{letter-spacing:-.02em;margin:0 0 6px;font-size:19px}
 .marq:hover .row{animation-play-state:paused}
 .marq figure{margin:0;flex:none;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#0d0b18;transition:transform .3s}
 .marq figure:hover{transform:translateY(-8px) scale(1.04)}
-.marq.v figure{width:260px}.marq.i figure{width:170px}
+.marq.v figure{width:260px}.marq.big figure{width:300px;border-radius:26px;box-shadow:0 30px 60px #000a}.marq.big video{aspect-ratio:9/16;object-fit:cover}.marq.i figure{width:170px}
 .marq video,.marq img{width:100%;display:block}
 .marq figcaption{font-size:12px;padding:7px 10px;color:var(--mut);text-align:center;font-weight:700}
 .mun{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
@@ -203,7 +203,7 @@ footer a{color:#fff}
 
 <header id="hd"><div class="wrap">
   <a class="logo" href="#"><img src="icono.png" alt=""><span>Video<span class="gl">Motor</span></span></a>
-  <nav id="nav"><a href="#demo">Cómo funciona</a><a href="#crimson">Crimson</a><a href="#estilos">Estilos</a><a href="#movil">Móvil</a><a href="#ia">IA</a><a href="#descargar">Descargar</a><a href="#licencia">Licencia</a><a href="#faq">Dudas</a></nav>
+  <nav id="nav"><a href="#hecho">Ejemplos</a><a href="#demo">Cómo funciona</a><a href="#crimson">Crimson</a><a href="#estilos">Estilos</a><a href="#movil">Móvil</a><a href="#ia">IA</a><a href="#descargar">Descargar</a><a href="#licencia">Licencia</a><a href="#faq">Dudas</a></nav>
   <a class="btn p sm" href="#descargar">Descargar</a>
 </div></header>
 
@@ -221,9 +221,9 @@ footer a{color:#fff}
   </div>
   <div class="stage" id="stage">
     <div class="ring"></div><div class="ring"></div><div class="ring"></div>
-    <div class="ph b" data-z="40"><video data-src="video/crimson-intro.mp4" muted loop playsinline></video></div>
-    <div class="ph c" data-z="40"><video data-src="video/movil-crimson.mp4" muted loop playsinline></video></div>
-    <div class="ph a" data-z="90"><video data-src="video/crimson-cuento.mp4" muted loop playsinline></video></div>
+    <div class="ph b" data-z="40"><video data-src="video/h-papel.mp4" muted loop playsinline></video></div>
+    <div class="ph c" data-z="40"><video data-src="video/h-bots.mp4" muted loop playsinline></video></div>
+    <div class="ph a" data-z="90"><video data-src="video/h-promo.mp4" muted loop playsinline></video></div>
     <span class="chip" style="left:2%;top:12%;--k:#22e3ff;animation-delay:-1s"><i></i>Voz offline</span>
     <span class="chip" style="right:0;top:22%;--k:#ffb02e;animation-delay:-2.5s"><i></i>120 estilos</span>
     <span class="chip" style="left:6%;bottom:14%;--k:#7c5cff;animation-delay:-3.5s"><i></i>Render en el móvil</span>
@@ -233,6 +233,13 @@ footer a{color:#fff}
 </div></div>
 
 <div class="tick"><div class="row" id="t1"></div></div>
+
+<section id="hecho" style="padding-top:70px"><div class="wrap">
+  <span class="kicker rv">Hecho con VideoMotor</span>
+  <h2 class="rv d1">Esto sale <span class="gl">de un guion</span></h2>
+  <p class="lead rv d2">Vídeos reales, sin cámara ni editor: motion graphics dibujados por código, con voz y música.</p>
+  <div class="marq v big"><div class="row" id="mh"></div></div>
+</div></section>
 
 <section id="demo"><div class="wrap">
   <span class="kicker rv">Así funciona</span>
@@ -440,8 +447,9 @@ const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
   const h=[...P,...P,...P,...P].map(p=>'<span>'+p+'</span>').join('');$('#t1').innerHTML=h})();
 /* marquesinas */
 (function(){
-  const V=[['neon','Neón nocturno'],['cine','Cinemático'],['comic','Cómic'],['aurora','Aurora'],['blueprint','Plano técnico'],['cristal','Cristal']];
-  const h=V.map(([f,n])=>`<figure><video data-src="video/${f}.mp4" muted loop playsinline></video><figcaption>${n}</figcaption></figure>`).join('');$('#mv').innerHTML=h+h+h;
+  const V=[['x-trade','Lanzamiento de producto'],['x-dota','Datos y noticias'],['x-ladoga','Lecciones de idiomas'],['x-editorial','Editorial en movimiento'],['x-cuba','Neón y datos'],['x-roshan','Storytime'],['x-pulpos','Curiosidades'],['h-papel','Papel recortado']];
+  const mk=a=>a.map(([f,n])=>`<figure><video data-src="video/${f}.mp4" muted loop playsinline></video><figcaption>${n}</figcaption></figure>`).join('');
+  const h=mk(V);$('#mv').innerHTML=h+h;const r=mk([...V].reverse());$('#mh').innerHTML=r+r;
   const B=[['browser','Navegador'],['callout','Resaltar'],['chart_mint','Gráfico que sube'],['chart_night','Gráfico que baja'],['chat','Chat'],['checklist','Lista'],['compare','Antes / ahora'],['countdown','Cuenta atrás'],['counting','Contar'],['grid','Cuadrícula'],['headline','Titular'],['journey','Mapa del tesoro'],['letter','Letra'],['magic','Magia'],['meter','Medidor %'],['moral','Moraleja'],['notifs','Notificaciones'],['phone','Idea'],['polaroids','Polaroid'],['price','Precio'],['progress','Progreso'],['quote','Cita'],['rain','Lluvia de dinero'],['rating','Valoración'],['reaction','Reacciones'],['scene','Escena'],['shapes','Formas'],['speech','Diálogo'],['split','Dos a la vez'],['stat','Cifra que cuenta'],['steps','Pasos 1-2-3'],['storybook','Cuento'],['terminal','Terminal'],['theend','FIN'],['timeline','Línea de tiempo'],['title','Portada']];
   const g=B.map(([f,n])=>`<figure><img src="img/broll/${f}.jpg" alt="" loading="lazy"><figcaption>${n}</figcaption></figure>`).join('');$('#mb').innerHTML=g+g;
 })();
