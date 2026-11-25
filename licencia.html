@@ -216,6 +216,7 @@ footer a{color:#fff}
 .lf select option{background:#15121f}
 .lf input:focus,.lf select:focus,.lf textarea:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 4px #ff3d5a2e;background:#ffffff14}
 .lf input::placeholder{color:#ffffff44}
+.chipl{background:#ffffff14;border:1px solid #ffffff2a;border-radius:999px;padding:7px 14px;font-size:14px;font-weight:700;color:#fff}
 .ok{display:none;text-align:center;padding:30px 10px}
 .ok svg{width:110px;height:110px}
 .ok circle{fill:none;stroke:#39ff88;stroke-width:5;stroke-dasharray:300;stroke-dashoffset:300;animation:dr .8s .1s forwards}
@@ -239,12 +240,18 @@ footer a{color:#fff}
   <div class="top">
     <span class="kicker rv">Licencia</span>
     <h1 class="rv d1">Una clave, <span class="gl">tu equipo</span></h1>
-    <p class="lead rv d2">VideoMotor es de pago. Puedes instalarlo y verlo todo, pero para crear vídeos necesitas una clave. Se activa sin internet y queda atada a tu equipo.</p>
+    <p class="lead rv d2">VideoMotor es de pago y <b>no se puede usar sin licencia</b>: al abrir la app, en el PC o en Android, te pide tu clave y no deja hacer nada hasta activarla. Se activa sin internet y queda atada a tu equipo.</p>
   </div>
   <div class="flow" id="flow">
     <div class="st rv"><div class="n">1</div><h3>Copia tu código</h3><p>En la app, botón <b style="color:#fff">🔑 Licencia</b> (PC) o <b style="color:#fff">Ajustes → Licencia</b> (móvil).</p></div>
-    <div class="st rv d1"><div class="n">2</div><h3>Envía la solicitud</h3><p>Rellena el formulario de abajo con ese código. Te respondo con tu clave.</p></div>
+    <div class="st rv d1"><div class="n">2</div><h3>Envía la solicitud</h3><p>Rellena el formulario o escríbeme por WhatsApp con ese código. Te respondo con tu clave.</p></div>
     <div class="st rv d2"><div class="n">3</div><h3>Actívala</h3><p>Pega la clave (empieza por <code>VM1-</code>) y pulsa Activar. Funciona sin internet.</p></div>
+  </div>
+  <div class="card rv" style="margin:0 0 34px;padding:30px;border-color:#25d36666">
+    <h3 style="font-size:26px;margin-bottom:10px">La licencia se otorga de forma <span class="gl">manual</span></h3>
+    <p style="margin-bottom:14px">Yo mismo la preparo para tu equipo, con el tiempo que necesites: <b style="color:#fff">desde 5 horas hasta VIP</b> (sin caducidad), o el tiempo a tu medida. Si ya la solicitaste, escríbeme por WhatsApp y te la envío.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px"><span class="chipl">5 horas</span><span class="chipl">1 día</span><span class="chipl">1 semana</span><span class="chipl">1 mes</span><span class="chipl">Tiempo a medida</span><span class="chipl">⭐ VIP</span></div>
+    <a class="btn" data-mag style="background:#25d366;color:#04200f;border-color:#25d366" href="https://wa.me/79100999216?text=Hola%2C%20quiero%20mi%20licencia%20de%20VideoMotor" target="_blank" rel="noopener">💬 Escribir al WhatsApp +79100999216</a>
   </div>
   <div class="formwrap">
     <div class="card rv" id="pedir" style="padding:30px">
@@ -262,12 +269,12 @@ footer a{color:#fff}
         <button class="btn p" data-mag type="submit" style="width:100%;justify-content:center;margin-top:6px">Enviar solicitud</button>
         <p class="note" id="fmsg"></p>
       </form>
-      <div class="ok"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48"/><path d="M38 62l16 16 30-34"/></svg><h3 style="font-size:24px">¡Recibido!</h3><p style="max-width:360px;margin:8px auto 0;color:var(--mut)">Te escribiré pronto con tu clave por el medio de contacto que pusiste.</p></div>
+      <div class="ok"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48"/><path d="M38 62l16 16 30-34"/></svg><h3 style="font-size:24px">¡Recibido!</h3><p style="max-width:360px;margin:8px auto 0;color:var(--mut)">La licencia se otorga de forma manual: te escribiré pronto con tu clave. Si tardo, escríbeme al WhatsApp +79100999216.</p></div>
       </div>
     </div>
     <div class="rv d2">
       <div class="card" style="margin-bottom:18px"><h3>Así se ve tu código</h3><div class="keyd"><span>A1B2-C3D4-E5F6-0789</span></div><p>Son 16 letras y números en grupos de 4. Lo encuentras en la app, en <b style="color:#fff">🔑 Licencia</b>.</p></div>
-      <div class="card"><h3>¿Prefieres Instagram?</h3><p style="margin-bottom:14px">También puedes mandarme el código por mensaje.</p><a class="btn" data-mag href="https://instagram.com/macc_dota2" target="_blank" rel="noopener">@macc_dota2</a></div>
+      <div class="card"><h3>¿Prefieres Instagram?</h3><p style="margin-bottom:14px">También puedes mandarme el código por mensaje, pero el WhatsApp es más rápido.</p><a class="btn" data-mag href="https://instagram.com/macc_dota2" target="_blank" rel="noopener">@macc_dota2</a></div>
     </div>
   </div>
 </div></section>
@@ -275,10 +282,11 @@ footer a{color:#fff}
 <section id="faq"><div class="wrap">
   <span class="kicker rv">Claro y sin letra pequeña</span>
   <h2 class="rv d1">Sobre la <span class="gl">licencia</span></h2>
-  <details class="rv"><summary>¿Necesito internet para activarla?</summary><p>No. La clave se comprueba en tu equipo, sin conectarse a ningún servidor.</p></details>
+  <details class="rv"><summary>¿Cuánto dura la licencia?</summary><p>El tiempo que acordemos: desde 5 horas hasta VIP (sin caducidad). Se otorga de forma manual y puede ser de cualquier duración. Cuando caduca, la app se bloquea y se pide una clave nueva por WhatsApp al +79100999216.</p></details>
+  <details class="rv"><summary>¿Necesito internet para activarla?</summary><p>No. La clave se comprueba en tu equipo, sin conectarse a ningún servidor. La licencia empieza a contar desde que te la emito, así que actívala en cuanto la recibas.</p></details>
   <details class="rv"><summary>¿En cuántos equipos puedo usarla?</summary><p>Cada clave se ata al código de un equipo. Un PC, un móvil, o los que acordemos: pide una clave por cada código.</p></details>
-  <details class="rv"><summary>¿Qué puedo hacer sin clave?</summary><p>Instalar la app y verlo todo. Para crear y exportar vídeos hace falta la clave.</p></details>
-  <details class="rv"><summary>¿Cambié de equipo, qué hago?</summary><p>Envía el código del equipo nuevo con este mismo formulario y dilo en comentarios.</p></details>
+  <details class="rv"><summary>¿Qué puedo hacer sin clave?</summary><p>Instalar la app. Al abrirla te pide la clave y no puedes usar nada más hasta activarla.</p></details>
+  <details class="rv"><summary>¿Cambié de equipo, qué hago?</summary><p>Envía el código del equipo nuevo por el formulario o por WhatsApp (+79100999216) y dime que cambiaste de equipo.</p></details>
   <div class="cta rv"><h2 style="color:#fff">¿Sin app todavía?</h2><p>Descárgala, ábrela y copia tu código desde 🔑 Licencia.</p><a class="btn" data-mag href="./#descargar">⬇ Ir a descargas</a></div>
 </div></section>
 </main>
